@@ -31,6 +31,12 @@ body {
     p {
       font-weight: 300;
       font-size: 20px;
+
+      &.example {
+        color: rgba(82, 82, 82, 0.925);
+        font-size: 14px;
+        margin-top: 0.4rem;
+      }
     }
 
     input {

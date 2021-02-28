@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: #f5f5f5;
+}
+
+body #container {
+  background: #fff;
+  padding: 5rem 4rem;
+  margin: 5rem;
+  border: 2px solid #dad7d7;
+  border-radius: 0.8rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+body #container h2 {
+  font-size: 45px;
+  font-weight: 400;
+  margin-bottom: 2rem;
+}
+
+body #container p {
+  font-weight: 300;
+  font-size: 20px;
+}
+
+body #container p.example {
+  color: rgba(82, 82, 82, 0.925);
+  font-size: 14px;
+  margin-top: 0.4rem;
+}
+
+body #container input {
+  height: 3rem;
+  width: 20rem;
+  padding: 1rem;
+  margin: 8px 0 20px 0;
+  background: #f5f5f5;
+  border: 1px solid #3c7d90;
+  border-radius: 0.6rem;
+}
+
+body #container button {
+  height: 4rem;
+  width: 12rem;
+  background: #3c7d90;
+  border: none;
+  border-radius: 0.6rem;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 300;
+  cursor: pointer;
+  outline: none;
+}
+
+body #container .result {
+  height: 8rem;
+  width: 20rem;
+  margin-top: 30px;
+  padding: 15px;
+  border-radius: 0.6rem;
+  border: 1px solid #3c7d90;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body #container .result p {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+body #container .result p.p__valid, body #container .result p.p__not-valid {
+  display: none;
+}
+
+body #container .result.not-valid {
+  border: 0;
+  color: #ff0202;
+  background: #e24e4e;
+}
+
+body #container .result.valid {
+  border: 0;
+  color: green;
+  background: #96e026;
+}
+/*# sourceMappingURL=style.css.map */
