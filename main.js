@@ -42,7 +42,6 @@ class cpfValidation {
 
 
   verification = (cpf) => {
-    console.log('oub')
     if(typeof cpf != 'string' || typeof cpf != 'number') return false;
     if(cpf.legth !== 11) return false;
     if(this.isSequence()) return false;
@@ -80,11 +79,11 @@ class cpfValidation {
 
   addDigit = (arr, digit) => [...arr, digit];
 
-  isValid = (cpf, complete) =>  cpf[9] == complete[9] && cpf[10] == complete[10] ? 'this cpf is valid' : 'this cpf is not valid';
+  isValid = (cpf, complete) =>  cpf[9] == complete[9] && cpf[10] == complete[10] ? true : false;
 
   controller = () => {
 
-    if(this.verification()) return 'this cpf is not valid';
+    if(this.verification()) return false;
 
     const cpfClr = this.removeCharacter(this.cpf);
     const cpfArr = this.toArr(cpfClr);
@@ -104,5 +103,40 @@ class cpfValidation {
 
 }
 
-const isValid = new cpfValidation('412.876.640-24');
-console.log(isValid.controller());
+function showToUser(validationResp) {
+
+   const container = document.querySelector('.result');
+  const pTag = [
+    document.querySelector('.p__valid'),
+    document.querySelector('.p__not-valid')
+  ];
+
+  for(const p of pTag) {
+    if(p.style.display !== 'none') p.style.display = 'none';
+  }
+
+  let resp;
+
+  if(validationResp) {
+    container.style.background = 'rgb(150, 224, 38)'
+    resp = pTag[0];
+  } else {
+    container.style.background = '#e24e4e';
+    resp = pTag[1];
+  }
+
+  resp.style.display = 'block';
+}
+
+function userController() {
+  const cpf = document.querySelector('.cpf-input').value;
+  const validation = new cpfValidation(cpf);
+  const resp = validation.controller();
+  showToUser(resp);
+
+}
+
+document.addEventListener('click', (e) => {
+  e.preventDefault();
+  if(e.target.classList.contains('validate')) userController();
+})
