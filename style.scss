@@ -81,18 +81,13 @@ body {
         &.p__not-valid {
           display: none;
         }
-      }
+        &.p__valid {
+          color: rgb(0, 128, 0);
+        }
 
-      &.not-valid {
-        border: 0;
-        color: #ff0202;
-        background: #e24e4e;
-      }
-
-      &.valid {
-        border: 0;
-        color: rgb(0, 128, 0);
-        background: rgb(150, 224, 38);
+        &.p__not-valid {
+          color: #ff0202;
+        }
       }
     }
   }

@@ -102,15 +102,11 @@ body #container .result p.p__valid, body #container .result p.p__not-valid {
   display: none;
 }
 
-body #container .result.not-valid {
-  border: 0;
-  color: #ff0202;
-  background: #e24e4e;
+body #container .result p.p__valid {
+  color: green;
 }
 
-body #container .result.valid {
-  border: 0;
-  color: green;
-  background: #96e026;
+body #container .result p.p__not-valid {
+  color: #ff0202;
 }
 /*# sourceMappingURL=style.css.map */
