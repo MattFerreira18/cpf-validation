@@ -41,23 +41,23 @@ class cpfValidation {
   }
 
 
-  verification = (cpf) => {
+  static verification = (cpf) => {
     if(typeof cpf != 'string' || typeof cpf != 'number') return false;
     if(cpf.legth !== 11) return false;
     if(this.isSequence()) return false;
   }
 
-  isSequence = (cpf) => {
+  static isSequence = (cpf) => {
     return cpf.charAt(0).repeat(11) === cpf;
   }
 
-  removeCharacter = (cpf) => cpf.replace(/\D+/g, '');
+  static removeCharacter = (cpf) => cpf.replace(/\D+/g, '');
 
-  toArr = (cpf) => Array.from(cpf);
+  static toArr = (cpf) => Array.from(cpf);
 
-  removeDigits = (cpf) => cpf.splice(0, 9);
+  static removeDigits = (cpf) => cpf.splice(0, 9);
 
-  multiplyAndSum = (arr) => {
+  static multiplyAndSum = (arr) => {
     const multiplies = [11, 10,9,8,7,6,5,4,3,2];
     const multiplieds = [];
     let number = 0;
@@ -72,36 +72,39 @@ class cpfValidation {
     return sum;
   }
 
-  createDigit = (sum) => {
+  static createDigit = (sum) => {
     const digit = 11 - (sum % 11);
     return digit > 9 ? 0 : digit;
   }
 
-  addDigit = (arr, digit) => [...arr, digit];
+  static addDigit = (arr, digit) => [...arr, digit];
 
-  isValid = (cpf, complete) =>  cpf[9] == complete[9] && cpf[10] == complete[10] ? true : false;
+  static isValid = (cpf, complete) =>  cpf[9] == complete[9] && cpf[10] == complete[10] ? true : false;
 
   controller = () => {
 
-    if(this.verification()) return false;
+    if(cpfValidation.verification()) return false;
 
-    const cpfClr = this.removeCharacter(this.cpf);
-    const cpfArr = this.toArr(cpfClr);
+    const cpfClr = cpfValidation.removeCharacter(this.cpf);
+    const cpfArr = cpfValidation.toArr(cpfClr);
 
-    const cpfWithoutDigits = this.removeDigits(cpfArr);
-    const cpfSum1 = this.multiplyAndSum(cpfWithoutDigits);
-    const digit1 = this.createDigit(cpfSum1);
-    const cpfWithFirstDigit = this.addDigit(cpfWithoutDigits, digit1);
+    const cpfWithoutDigits = cpfValidation.removeDigits(cpfArr);
+    const cpfSum1 = cpfValidation.multiplyAndSum(cpfWithoutDigits);
+    const digit1 = cpfValidation.createDigit(cpfSum1);
+    const cpfWithFirstDigit = cpfValidation.addDigit(cpfWithoutDigits, digit1);
 
-    const cpfSum2 = this.multiplyAndSum(cpfWithFirstDigit);
-    const digit2 = this.createDigit(cpfSum2);
+    const cpfSum2 = cpfValidation.multiplyAndSum(cpfWithFirstDigit);
+    const digit2 = cpfValidation.createDigit(cpfSum2);
 
-    const cpfComplete = this.addDigit(cpfWithFirstDigit, digit2);
-    const resp = this.isValid(cpfClr, cpfComplete);
+    const cpfComplete = cpfValidation.addDigit(cpfWithFirstDigit, digit2);
+    const resp = cpfValidation.isValid(cpfClr, cpfComplete);
     return resp;
   }
 
 }
+
+// const cpf = new cpfValidation('412.876.640-24');
+// console.log(cpf.controller());
 
 function showToUser(validationResp) {
 
