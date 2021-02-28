@@ -35,82 +35,74 @@ sum    = 271
 5 - Compare CPF original with CPF calculated
 */
 
-function removeCharacter(cpf) {
-  // regular expression
-  const clear = cpf.replace(/\D+/g, '');
-  return clear;
-}
-
-function toArr(cpf) {
-  return Array.from(cpf);
-}
-
-function removeDigits(cpfArr) {
-  cpfArr.pop();
-  cpfArr.pop();
-  return cpfArr;
-}
-
-function multiplyAndSum(arr) {
-  const multiplies = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
-  const multipliedArr = [];
-
-  arr.forEach((el, index) => {
-    let number;
-    if (arr.length === 10) {
-      number = multiplies[index];
-    } else {
-      number = multiplies[index + 1];
-    }
-    multipliedArr.push(el * number);
-  });
-
-  const sum = multipliedArr.reduce((accumulator, value) => {
-    accumulator += value;
-    return accumulator;
-  }, 0);
-  return sum;
-}
-
-function createDigit(sum) {
-  let digit = 11 - (sum % 11);
-  if (digit > 9) digit = 0;
-  return digit;
-}
-
-function addDigit(arr, digit) {
-  return [...arr, digit];
-}
-
-function isValid(cpf, calculated) {
-  if (
-    toString(cpf[9]) === toString(calculated[9]) &&
-    toString(cpf[10]) === toString(calculated[10])
-  ) {
-    return 'this CPF is valid';
+class cpfValidation {
+  constructor(cpf) {
+    this.cpf = cpf;
   }
-  return 'this CPF is not valid';
+
+
+  verification = (cpf) => {
+    console.log('oub')
+    if(typeof cpf != 'string' || typeof cpf != 'number') return false;
+    if(cpf.legth !== 11) return false;
+    if(this.isSequence()) return false;
+  }
+
+  isSequence = (cpf) => {
+    return cpf.charAt(0).repeat(11) === cpf;
+  }
+
+  removeCharacter = (cpf) => cpf.replace(/\D+/g, '');
+
+  toArr = (cpf) => Array.from(cpf);
+
+  removeDigits = (cpf) => cpf.splice(0, 9);
+
+  multiplyAndSum = (arr) => {
+    const multiplies = [11, 10,9,8,7,6,5,4,3,2];
+    const multiplieds = [];
+    let number = 0;
+
+    arr.forEach((el, index) => {
+      arr.length === 10 ? (number = multiplies[index]) : (number = multiplies[index + 1]);
+      multiplieds.push(el * number);
+    });
+
+    const sum = multiplieds.reduce((accumulator, value) => (accumulator += value), 0);
+
+    return sum;
+  }
+
+  createDigit = (sum) => {
+    const digit = 11 - (sum % 11);
+    return digit > 9 ? 0 : digit;
+  }
+
+  addDigit = (arr, digit) => [...arr, digit];
+
+  isValid = (cpf, complete) =>  cpf[9] == complete[9] && cpf[10] == complete[10] ? 'this cpf is valid' : 'this cpf is not valid';
+
+  controller = () => {
+
+    if(this.verification()) return 'this cpf is not valid';
+
+    const cpfClr = this.removeCharacter(this.cpf);
+    const cpfArr = this.toArr(cpfClr);
+
+    const cpfWithoutDigits = this.removeDigits(cpfArr);
+    const cpfSum1 = this.multiplyAndSum(cpfWithoutDigits);
+    const digit1 = this.createDigit(cpfSum1);
+    const cpfWithFirstDigit = this.addDigit(cpfWithoutDigits, digit1);
+
+    const cpfSum2 = this.multiplyAndSum(cpfWithFirstDigit);
+    const digit2 = this.createDigit(cpfSum2);
+
+    const cpfComplete = this.addDigit(cpfWithFirstDigit, digit2);
+    const resp = this.isValid(cpfClr, cpfComplete);
+    return resp;
+  }
+
 }
 
-function controller(cpf) {
-  const clear = removeCharacter(cpf);
-  const cpfArr = toArr(clear);
-  const copyCpfArr = [...cpfArr];
-  const restArr = removeDigits(cpfArr);
-
-  // first digit
-  const resultOne = multiplyAndSum(restArr);
-  const digit = createDigit(resultOne);
-  const withFirstDigit = addDigit(restArr, digit);
-
-  // second digit
-  const resultTwo = multiplyAndSum(withFirstDigit);
-  const secondDigit = createDigit(resultTwo);
-  const cpfCalc = addDigit(withFirstDigit, secondDigit);
-  const resp = isValid(copyCpfArr, cpfCalc);
-  console.log(resp);
-}
-
-const cpf = '412.876.640-24';
-
-controller(cpf);
+const isValid = new cpfValidation('412.876.640-24');
+console.log(isValid.controller());
